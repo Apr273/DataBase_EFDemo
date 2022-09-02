@@ -38,7 +38,7 @@ namespace EFDemo.Controllers
                 {
                     VolActId = activity.VolActId,
                     VolActName = activity.VolActName,
-                    ExpTime = activity.ExpTime,
+                    ExpTime = activity.ExpTime.ToString("U"),
                     Province = activity.Address.ProvinceId,
                     City = activity.Address.CityId,
                     Area = activity.Address.AreaId,
@@ -74,7 +74,7 @@ namespace EFDemo.Controllers
                 message.data.Add("activity_pic", activity.ActPicUrl);
                 message.data.Add("activity_needpeople", activity.Needpeople);
                 message.data.Add("activity_signupPeople", activity.SignupPeople);
-                message.data.Add("activity_expTime", activity.ExpTime);
+                message.data.Add("activity_expTime", activity.ExpTime.ToString());
                 message.data.Add("activity_contactMethod", activity.ContactMethod);
                 message.data.Add("activity_content", activity.ActContent);
                 YixunVolInst inst = await ctx.YixunVolInsts.SingleOrDefaultAsync(b => b.VolInstId == activity.VolInstId);
@@ -269,7 +269,7 @@ namespace EFDemo.Controllers
                    {
                        VolActId = activity.VolActId,
                        VolActName = activity.VolActName,
-                       ExpTime = activity.ExpTime,
+                       ExpTime = activity.ExpTime.ToString(),
                        Province = activity.Address.ProvinceId,
                        City = activity.Address.CityId,
                        Area = activity.Address.AreaId,
@@ -296,7 +296,7 @@ namespace EFDemo.Controllers
                    {
                        VolActId = activity.VolActId,
                        VolActName = activity.VolActName,
-                       ExpTime = activity.ExpTime,
+                       ExpTime = activity.ExpTime.ToString(),
                        Province = activity.Address.ProvinceId,
                        City = activity.Address.CityId,
                        Area = activity.Address.AreaId,
@@ -675,8 +675,8 @@ namespace EFDemo.Controllers
                     search_info_date = i.Searchinfo.SearchinfoDate,
                     sought_people_state = i.Searchinfo.SoughtPeopleState,
                     sought_people_name = i.Searchinfo.SoughtPeopleName,
-                    search_info_lostdate = i.Searchinfo.SearchinfoLostdate,
-                    sought_people_birthday = i.Searchinfo.SoughtPeopleBirthday,
+                    search_info_lostdate = i.Searchinfo.SearchinfoLostdate.ToString("d"),
+                    sought_people_birthday = i.Searchinfo.SoughtPeopleBirthday.ToString("d"),
                     sought_people_gender = i.Searchinfo.SoughtPeopleGender,
                     sought_people_height = i.Searchinfo.SoughtPeopleHeight,
                     sought_people_detail = i.Searchinfo.SoughtPeopleHeight,
@@ -722,7 +722,7 @@ namespace EFDemo.Controllers
                     vol_act_id = act.VolActId,
                     vol_act_name = act.VolAct.VolActName,
                     vol_act_content = act.VolAct.ActContent,
-                    vol_act_time = act.VolAct.ExpTime,
+                    vol_act_time = act.VolAct.ExpTime.ToString(),
                     province_id = (act.VolAct.Address != null) ? act.VolAct.Address.ProvinceId : null!,
                     city_id = (act.VolAct.Address != null) ? act.VolAct.Address.CityId : null!,
                     area_id = (act.VolAct.Address != null) ? act.VolAct.Address.AreaId : null!,

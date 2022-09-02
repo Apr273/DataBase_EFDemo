@@ -33,7 +33,7 @@ namespace EFDemo.Controllers
             try
             {
 
-                YixunSearchinfo searchinfo = await ctx.YixunSearchinfos.SingleOrDefaultAsync(b => b.SearchinfoId == search_id);
+                YixunSearchinfo searchinfo = await ctx.YixunSearchinfos.SingleOrDefaultAsync(b => b.SearchinfoId == search_id&& b.Isactive == "Y");
                 //取YixunWebUser类中where YiXunWebUser.UserId == user_id的数据给user对象
                 //YixunWebUser user1 = ctx.YixunWebUsers.SingleOrDefault(b => (b.UserName == user_name||b.UserName == null)&&(b.UserId==user_id));
                 //如果没有，user是null，后面不会向message的data字典里面加输出信息

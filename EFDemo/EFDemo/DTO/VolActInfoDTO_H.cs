@@ -6,7 +6,7 @@ namespace EFDemo.DTO
          public int vol_act_id { get; set; }
         public string vol_act_name { get; set; } = null!;
         public string vol_act_content { get; set; } = null!;
-        public DateTime vol_act_time { get; set; }
+        public string vol_act_time { get; set; } = null!;
         public string province_id { get; set; } = null!;
         public string city_id { get; set; } = null!;
         public string area_id { get; set; } = null!;

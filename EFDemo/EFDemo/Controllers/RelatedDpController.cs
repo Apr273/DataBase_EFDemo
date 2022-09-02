@@ -91,6 +91,51 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
+        [HttpPost("PutDP")]
+        public string PutDP(dynamic inputData)
+        {
+            MessageFormat message = new();  //MessageFormat是数据返回的类型，见MessageFormat.cs文件
+            try
+            {
+                string act_province = inputData.GetProperty("province").ToString();//null
+                string act_city = inputData.GetProperty("city").ToString();
+                string act_area = inputData.GetProperty("area").ToString();
+                string act_address = inputData.GetProperty("address").ToString();
+                string web = inputData.GetProperty("website").ToString();
+                string name = inputData.GetProperty("name").ToString();
+                string contact = inputData.GetProperty("contact").ToString();
+                int volInst_Id = int.Parse(inputData.GetProperty("admin").ToString());
+                YixunRelatedDp activity = new YixunRelatedDp();
+                activity.DpName = name;
+                activity.ContactMethod = contact;
+                activity.Website = web;
+                activity.AdministratorId = volInst_Id;
 
+
+                if (act_province != "")
+                {
+                    YixunAddress address = new YixunAddress();
+                    address.Detail = act_address;
+                    address.AreaId = act_area;
+                    address.CityId = act_city;
+                    address.ProvinceId = act_province;
+                    ctx.YixunAddresses.Add(address);
+                    ctx.SaveChanges();
+                    var addressid = ctx.YixunAddresses.Select(s => s.AddressId).Max();
+
+                    activity.AddressId = addressid;
+                }
+
+                ctx.YixunRelatedDps.Add(activity);
+                ctx.SaveChanges();
+                message.errorCode = 200;
+                message.status = true;
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.ToString());
+            }
+            return message.ReturnJson();
+        }
     }
 }

@@ -32,9 +32,9 @@ namespace EFDemo.Controllers
             {
                 if(news_type=="全部")
                 {
-                    var total = ctx.YixunNews.Count();
+                    var total = ctx.YixunNews.Count(news => news.Isactive == "Y");
                     message.data.Add("total", total);
-                    var NewsList = await ctx.YixunNews
+                    var NewsList = await ctx.YixunNews.Where(news=>news.Isactive=="Y")
                     .OrderBy(news => news.NewsId)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
@@ -54,9 +54,9 @@ namespace EFDemo.Controllers
                 }
                 else
                 {
-                    var total = ctx.YixunNews.Count(news => news.NewsType == news_type);
+                    var total = ctx.YixunNews.Count(news => news.NewsType == news_type&& news.Isactive == "Y");
                     message.data.Add("total", total);
-                    var NewsList = await ctx.YixunNews.Where(news => news.NewsType == news_type)
+                    var NewsList = await ctx.YixunNews.Where(news => news.NewsType == news_type&& news.Isactive == "Y")
                     .OrderBy(news => news.NewsId)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
@@ -92,7 +92,7 @@ namespace EFDemo.Controllers
             MessageFormat message = new();  //MessageFormat是数据返回的类型，见MessageFormat.cs文件
             try
             {
-                YixunNews news = await ctx.YixunNews.SingleOrDefaultAsync(b => b.NewsId == news_id);
+                YixunNews news = await ctx.YixunNews.SingleOrDefaultAsync(b => b.NewsId == news_id&& b.Isactive == "Y");
                 message.data.Add("news_id", news.NewsId);
                 message.data.Add("news_content", news.NewsContent);
                 message.data.Add("news_time", news.NewsTime);
@@ -117,8 +117,8 @@ namespace EFDemo.Controllers
                 int pageSize = int.Parse(inputData.GetProperty("pageSize").ToString());
                 if (search != "")
                 {
-                    message.data.Add("total", ctx.YixunNews.Count(news => EF.Functions.Like(news.NewsHeadlines, "%" + search + "%")|| EF.Functions.Like(news.NewsContent, "%" + search + "%")));
-                    var NewsList = await ctx.YixunNews.Where(news => EF.Functions.Like(news.NewsHeadlines, "%" + search + "%") || EF.Functions.Like(news.NewsContent, "%" + search + "%"))
+                    message.data.Add("total", ctx.YixunNews.Count(news => news.Isactive == "Y"&&(EF.Functions.Like(news.NewsHeadlines, "%" + search + "%")|| EF.Functions.Like(news.NewsContent, "%" + search + "%"))));
+                    var NewsList = await ctx.YixunNews.Where(news => news.Isactive == "Y"&&( EF.Functions.Like(news.NewsHeadlines, "%" + search + "%") || EF.Functions.Like(news.NewsContent, "%" + search + "%")))
                     .OrderBy(news => news.NewsId)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
@@ -138,8 +138,8 @@ namespace EFDemo.Controllers
                 }
                 else
                 {
-                    message.data.Add("total", ctx.YixunNews.Count());
-                    var NewsList = await ctx.YixunNews
+                    message.data.Add("total", ctx.YixunNews.Count(news=>news.Isactive == "Y"));
+                    var NewsList = await ctx.YixunNews.Where(news => news.Isactive == "Y")
                     .OrderBy(news => news.NewsId)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)

@@ -58,7 +58,7 @@ namespace EFDemo.Controllers
         }
         //@Author：刘睿萌
         [HttpPut("AddNewsCover")]
-        public async Task<string> AddNewsCover(dynamic inputdata)
+        public string AddNewsCover(dynamic inputdata)
         {
             MessageFormat message = new();
             try
@@ -76,7 +76,7 @@ namespace EFDemo.Controllers
                 string imgurl = "https://yixun-picture.oss-cn-shanghai.aliyuncs.com/" + path;
                 news.NewsTitlepagesUrl = imgurl;
                 ctx.YixunNews.Update(news);
-                await ctx.SaveChangesAsync();
+                ctx.SaveChanges();
                 message.data.Add("news_cover", imgurl);
                 message.errorCode = 200;
                 message.status = true;
@@ -115,7 +115,7 @@ namespace EFDemo.Controllers
         }
         //@Author：刘睿萌
         [HttpPost("ReleaseVolActivity")]
-        public async Task<string> ReleaseVolActivity(dynamic inputData)
+        public string ReleaseVolActivity(dynamic inputData)
         {
             MessageFormat message = new();
             try
@@ -145,14 +145,14 @@ namespace EFDemo.Controllers
                     address.CityId = act_city;
                     address.ProvinceId = act_province;
                     ctx.YixunAddresses.Add(address);
-                    await ctx.SaveChangesAsync();
+                    ctx.SaveChanges();
                     var addressid = ctx.YixunAddresses.Select(s => s.AddressId).Max();
 
                     activity.AddressId = addressid;
                 }
 
                 ctx.YixunVolActivities.Add(activity);
-                await ctx.SaveChangesAsync();
+                ctx.SaveChanges();
 
                 //YixunVolActivity _activity = ctx.YixunVolActivities.Single(b => b.VolActName == act_name && b.VolInstId == volInst_Id);
                 var volActId = ctx.YixunVolActivities.Select(s => s.VolActId).Max();
@@ -170,7 +170,7 @@ namespace EFDemo.Controllers
         }
         //@Author：刘睿萌
         [HttpPut("AddVolActivityPic")]
-        public async Task<string> AddVolActivityPic(dynamic inputdata)
+        public string AddVolActivityPic(dynamic inputdata)
         {
             MessageFormat message = new();
             try
@@ -188,7 +188,7 @@ namespace EFDemo.Controllers
                 string imgurl = "https://yixun-picture.oss-cn-shanghai.aliyuncs.com/" + path;
                 activity.ActPicUrl = imgurl;
                 ctx.YixunVolActivities.Update(activity);
-                await ctx.SaveChangesAsync();
+                ctx.SaveChanges();
                 message.data.Add("volAct_pic", imgurl);
                 message.errorCode = 200;
                 message.status = true;

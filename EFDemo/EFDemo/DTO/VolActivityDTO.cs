@@ -4,7 +4,7 @@
     {
         public int VolActId { get; set; } = 0!;//biaohao
         public string VolActName { get; set; } = null!;//mingzi
-        public DateTime ExpTime { get; set; }//time
+        public string ExpTime { get; set; } = null!;//time
         public string? Detail { get; set; } = null!;
         public string? Province { get; set; } = null!;
         public string? City { get; set; } = null!;
