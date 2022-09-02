@@ -7,5 +7,9 @@ namespace EFDemo.Models
     {
         public int SearchinfoId { get; set; }
         public int UserId { get; set; }
+        public DateTime? Focustime { get; set; }
+
+        public virtual YixunSearchinfo Searchinfo { get; set; } = null!;
+        public virtual YixunWebUser User { get; set; } = null!;
     }
 }

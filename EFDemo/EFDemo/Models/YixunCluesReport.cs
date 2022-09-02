@@ -8,8 +8,14 @@ namespace EFDemo.Models
         public int ClueReportId { get; set; }
         public DateTime? ReportTime { get; set; }
         public string? ReportContent { get; set; }
-        public string Isreviewed { get; set; } = null!;
         public int ClueId { get; set; }
         public int UserId { get; set; }
+        public string? Isreviewed { get; set; }
+        public int AdministratorId { get; set; }
+        public string? Ispass { get; set; }
+
+        public virtual YixunAdministrator Administrator { get; set; } = null!;
+        public virtual YixunClue Clue { get; set; } = null!;
+        public virtual YixunWebUser User { get; set; } = null!;
     }
 }

@@ -9,5 +9,7 @@ namespace EFDemo.Models
         public string AreaId { get; set; } = null!;
         public string? Area { get; set; }
         public string? Parent { get; set; }
+
+        public virtual YixunCity? ParentNavigation { get; set; }
     }
 }

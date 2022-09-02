@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EFDemo.Models; // 使用Models
+using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Oracle.EntityFrameworkCore;
 
 namespace EFDemo
 {
@@ -24,6 +27,8 @@ namespace EFDemo
 
 
         public IConfiguration Configuration { get; }
+
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -55,8 +60,19 @@ namespace EFDemo
             });
             services.AddControllers();
 
-            services.AddScoped<ModelContext>(); 
 
+
+            //var configuration = builder.Configuration;
+
+            // services.AddScoped<ModelContext>();
+            //全局取消跟踪
+            services.AddDbContext<ModelContext>(
+    option =>
+    {
+        option.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        option.UseOracle("DATA SOURCE= (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = 8.130.101.207)(PORT = 1521))(Connect_DATA = (SERVER = DEDICATED)(SERVICE_NAME = yixun)));PASSWORD= HqiuqiuLRM;USER ID= C##DEVELOPER ");
+    }
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +85,8 @@ namespace EFDemo
 
             //跨域处理
             app.UseCors("CorsPolicy");
+
+
 
             //启用中间件Swagger()
             app.UseSwagger();
