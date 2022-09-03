@@ -36,6 +36,11 @@ namespace EFDemo.Controllers
                 {
                     if (user.Isactive == "N" || user.UserState == "N")
                         return message.ReturnJson();
+
+                    user.LastloginTime = DateTime.Now;
+                    ctx.YixunWebUsers.Update(user);
+                    ctx.SaveChanges();
+
                     YixunVolunteer volunteer = ctx.YixunVolunteers.SingleOrDefault(b => b.VolUserId == user.UserId);
                     if(volunteer!=null)
                     {

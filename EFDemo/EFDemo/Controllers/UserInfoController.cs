@@ -25,7 +25,8 @@ namespace EFDemo.Controllers
         {
             ctx = modelContext;
         }
-
+        
+        //@Author：刘睿萌
         [HttpGet("GetUserInfo")]    //设置路由（路径）
 
         public async Task<string> GetUserInfo(int user_id)
@@ -71,7 +72,7 @@ namespace EFDemo.Controllers
         }
 
 
-        //这里没做分页处理
+        //@Author：刘睿萌
         [HttpGet("GetAllUserInfo")]
         public async Task<string> GetAllUserInfo()
         {
@@ -115,8 +116,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //前端传入格式：{"user_id":13,"user_password":"11111","new_password":"123456"}
-        //输出格式：{"errorCode":200,"status":true,"data":{"user_id":1,"user_new_password":"123456"}}
+        //@Author：刘睿萌
         [HttpPut("ChangePassword")]
         public string changePassword(dynamic inputData)
         {
@@ -146,8 +146,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //注册的时候默认没有头像，地址，性别，需要后面添加
-        //传入：{"user_id":1,"user_name":"2323","user_phone":12345678909,"user_email":"34343434","user_province":"110000","user_city":"110100","user_area":"110102","user_address":"一二一大街"}
+        //@Author：刘睿萌
         [HttpPut("ChangeUserInfo")]
         public async Task<string> ChangeUserInfo(dynamic inputData)
         {
@@ -206,7 +205,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-
+        //@Author：刘睿萌
         [HttpPut("upLoadUserHead")]
         public string upLoadUserHead(dynamic inputdata)
         {

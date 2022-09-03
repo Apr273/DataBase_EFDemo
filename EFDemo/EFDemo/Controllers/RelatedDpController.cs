@@ -23,26 +23,47 @@ namespace EFDemo.Controllers
             ctx = modelContext;
         }
 
+        //@Author：刘睿萌
         [HttpGet("GetRelatedDps")]
         public async Task<string> GetRelatedDps(string province,string city)
         {
             MessageFormat message = new();
             try
             {
-                var DpList = await ctx.YixunRelatedDps.Where(i => i.AddressId != null && i.Address.ProvinceId == province && i.Address.CityId == city)
-                .OrderBy(i => i.DpId)
-                .Select(i => new RelatedDpDTO
+
+                var AreaList = await ctx.YixunAreas.Where(i => i.Parent == city).Select(i => i.AreaId).ToListAsync();
+                foreach(var area in AreaList)
                 {
-                    DpId = i.DpId,
-                    DpName = i.DpName,
-                    ContactMethod = i.ContactMethod,
-                    Province = i.Address.ProvinceId,
-                    City = i.Address.CityId,
-                    Area = i.Address.AreaId,
-                    Detail = i.Address.Detail,
-                })
-                .ToListAsync();
-                message.data.Add("DP_list", DpList.ToArray());
+                    var DpList = await ctx.YixunRelatedDps.Where(i => i.AddressId != null && i.Address.AreaId == area)
+                    .OrderBy(i => i.DpId)
+                    .Select(i => new RelatedDpDTO
+                    {
+                        DpId = i.DpId,
+                        DpName = i.DpName,
+                        ContactMethod = i.ContactMethod,
+                        Province = i.Address.ProvinceId,
+                        City = i.Address.CityId,
+                        Area = i.Address.AreaId,
+                        Detail = i.Address.Detail,
+                    })
+                    .ToListAsync();
+
+                    message.data.Add(area, DpList.ToArray());
+                }
+                //var DpList = await ctx.YixunRelatedDps.Where(i => i.AddressId != null && i.Address.ProvinceId == province && i.Address.CityId == city)
+                //.OrderBy(i => i.DpId)
+                //.Select(i => new RelatedDpDTO
+                //{
+                //    DpId = i.DpId,
+                //    DpName = i.DpName,
+                //    ContactMethod = i.ContactMethod,
+                //    Province = i.Address.ProvinceId,
+                //    City = i.Address.CityId,
+                //    Area = i.Address.AreaId,
+                //    Detail = i.Address.Detail,
+                //})
+                //.ToListAsync();
+                //message.data.Add("DP_list", DpList.ToArray());
                 message.status = true;
                 message.errorCode = 200;
 
@@ -55,6 +76,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
+        //@Author：杨嘉仪
         [HttpGet("GetDPDetail")]    //设置路由（路径）
         //感觉没问题了，返回图片url
         public async Task<string> GetDPDetail(int DP_id)
@@ -91,6 +113,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
+        //@Author：刘睿萌
         [HttpPost("PutDP")]
         public string PutDP(dynamic inputData)
         {

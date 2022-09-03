@@ -23,6 +23,7 @@ namespace EFDemo.Controllers
             ctx = modelContext;
         }
 
+        //@Author：刘睿萌
         [HttpGet("GetAllNews")]
         public async Task<string> GetAllNews(string news_type,int pageNum, int pageSize)
         {
@@ -85,7 +86,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author：杨嘉仪
         [HttpGet("GetNewsDetail")]    //设置路由（路径）
         public async Task<string> GetNewsDetail(int news_id)
         {
@@ -106,6 +107,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
+        //@Author：刘睿萌
         [HttpPost("SearchNews")]
         public async Task<string> SearchNews(dynamic inputData)
         {

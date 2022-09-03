@@ -25,8 +25,8 @@ namespace EFDemo.Controllers
             ctx = modelContext;
         }
 
+        //@Author：杨嘉仪
         [HttpGet("GetSearchInfo")]    //设置路由（路径）
-        //感觉没问题了，返回图片url
         public async Task<string> GetSearchInfo(int search_id)
         {
             MessageFormat message = new();  //MessageFormat是数据返回的类型，见MessageFormat.cs文件

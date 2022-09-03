@@ -25,7 +25,7 @@ namespace EFDemo.Controllers
         }
 
 
-        //2.2 展示用户发布的所有寻人线索 不考虑用户封禁态
+        //@Author：刘睿萌
         [HttpGet("GetAllCLuesPublished")]
         public async Task<string> GetAllCLuesPublished(int user_id, int pageNum, int pageSize)
         {
@@ -64,7 +64,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //2.1 展示用户发布的所有寻人信息 不考虑用户封禁态
+        //@Author：刘睿萌
         [HttpGet("GetAllSearchInfoPublished")]
         public async Task<string> GetAllSearchInfoPublished(int user_id,int pageNum, int pageSize)
         {
@@ -74,7 +74,7 @@ namespace EFDemo.Controllers
                 message.data.Add("total", ctx.YixunSearchinfos.Count(searchInfo => searchInfo.UserId == user_id&&searchInfo.Isactive=="Y"));
                 var searchInfoList = await ctx.YixunSearchinfos
                 .Where(searchInfo => searchInfo.UserId == user_id && searchInfo.Isactive == "Y")
-                .OrderBy(searchInfo => searchInfo.SearchinfoId)
+                .OrderByDescending(searchInfo => searchInfo.SearchinfoId)
                 .Skip((pageNum - 1)* pageSize)
                 .Take(pageSize)
                 .Select(searchInfo => new SearchInfoPublished
@@ -109,7 +109,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //2.3 展示用户关注的所有寻人信息
+        //@Author：刘睿萌，韩淑荣
         [HttpGet("GetFollowInfo")]
         public async Task<string> GetFollowInfo(int userid, int pagenum, int pagesize)
         {
@@ -161,7 +161,7 @@ namespace EFDemo.Controllers
         }
 
 
-        //5.1 录入寻人信息
+        //@Author：刘睿萌
         [HttpPost("AddSearchPeopleInfo")] 
 
         public async Task<string> AddSearchPeopleInfo(dynamic inputData)
@@ -244,7 +244,7 @@ namespace EFDemo.Controllers
 
             return message.ReturnJson();
         }
-
+        //@Author：刘睿萌
         [HttpPut("AddSearchInfoPic")]
         public string AddSearchInfoPic(dynamic inputdata)
         {
@@ -276,7 +276,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //6.1 录入寻人信息举报信息
+        //@Author：梁厚
         [HttpPost("AddSearchInfoReport")]    //设置路由（路径）
         //还没有图片
         public async Task<string> AddSearchInfoReport(dynamic inputData)
@@ -319,7 +319,7 @@ namespace EFDemo.Controllers
         }
 
 
-        //6.2 录入线索举报信息
+        //@Author：梁厚
         [HttpPost("AddSearchClueReport")]    //设置路由（路径）
         //还没有图片
         public async Task<string> AddSearchClueReport(dynamic inputData)
@@ -361,7 +361,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //11.2 录入线索
+        //@Author：梁厚
         [HttpPost("AddSearchPeopleClue")]    //设置路由（路径）
         //还没有图片
         public async Task<string> AddSearchPeopleClue(dynamic inputData)

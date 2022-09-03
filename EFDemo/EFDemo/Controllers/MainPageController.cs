@@ -234,7 +234,7 @@ namespace EFDemo.Controllers
 
         //接收前端传来的地址码，返回该地址码处的寻人信息
         // GET: api/<SearchInfoController>
-        //@Author：刘睿萌
+        //@Author：刘睿萌，钟倩如
         [HttpGet("GetSearchInfoPos")]//设置路由
         public async Task<string> GetSearchInfoPos(string infoAd)
         {
@@ -307,7 +307,7 @@ namespace EFDemo.Controllers
         }
 
         //已发布项目，寻人信息总数
-        // GET: api/<SearchInfoController>
+        //@Author：钟倩如
         [HttpGet("GetSearchInfoNum")]//设置路由
         public async Task<string> GetSearchInfoNum()
         {
@@ -315,9 +315,8 @@ namespace EFDemo.Controllers
             return allSearchInfo.Count.ToString();
         }
 
-        //考虑放在CluesController？
         //已获得线索，线索总数
-        // GET: api/<SearchInfoController>
+        //@Author：钟倩如
         [HttpGet("GetCluesNum")]//设置路由
         public async Task<string> GetCluesNum()
         {
@@ -326,7 +325,7 @@ namespace EFDemo.Controllers
         }
 
         //累计已帮助，就是已经找到的信息
-        // GET: api/<SearchInfoController>
+        //@Author：钟倩如
         [HttpGet("GetFoundInfoNum")]//设置路由
         public async Task<string> GetFoundInfoNum()
         {

@@ -21,7 +21,7 @@ namespace EFDemo.Controllers
         {
             ctx = context;
         }
-
+        //@Author£ºº«ÊçéÅ
         [HttpGet("IfIsVol")]
         public string IfIsVol(int userid)
         {
@@ -47,7 +47,7 @@ namespace EFDemo.Controllers
         }
 
 
-
+        //@Author£ºº«ÊçéÅ
         [HttpGet("IfUserFocus")]
         public string IfUserFocus(int userid, int infoid)
         {
@@ -71,7 +71,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author£ºº«ÊçéÅ
         [HttpGet("UserFocus")]
         public async Task<string> UserFocus(int userid, int infoid)
         {
@@ -102,7 +102,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author£ºº«ÊçéÅ
         [HttpDelete("UserDeleteInfo")]
         public async Task<string> UserDeleteInfo(int userid, int infoid)
         {
@@ -150,7 +150,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author£ºº«ÊçéÅ
         [HttpDelete("UserDeleteClue")]
         public async Task<string> UserDeleteClue(int userid, int clueid)
         {

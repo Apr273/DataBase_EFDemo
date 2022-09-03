@@ -22,7 +22,7 @@ namespace EFDemo.Controllers
         {
             ctx = modelContext;
         }
-        //4.1.1 展示志愿活动卡片
+        //@Author：梁厚
         [HttpGet("ShowVolActivityList")] 
         public async Task<string> ShowVolActivityList(int pageNum, int pageSize)
         {
@@ -61,7 +61,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //4.1.3 展示单个志愿活动的详细信息
+        //@Author：梁厚
         [HttpGet("ShowSingleVolActivity")]    
         public async Task<string> ShowSingleVolActivity(int VolActId)
         {
@@ -106,7 +106,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-       // 4.2.1 展示所有志愿机构卡片
+        //@Author：梁厚
         [HttpGet("ShowAllVolInstitution")] 
         public async Task<string> ShowAllVolInstitution(int pageNum, int pageSize)
         {
@@ -145,7 +145,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //4.2.3 展示单个志愿机构的详细信息
+        //@Author：梁厚
         [HttpGet("ShowSingleVolInstitution")]    //设置路由（路径）
         //还没有图片
         public async Task<string> ShowSingleVolInstitution(int VolInstId)
@@ -188,9 +188,8 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //4.3 展示志愿时长排在前10的志愿者信息
+        //@Author：梁厚
         [HttpGet("ShowTenVolunteer")]    //设置路由（路径）
-        //还没有图片
         public string ShowTenVolunteer()
         {
             MessageFormat message = new();
@@ -221,7 +220,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-
+        //@Author：梁厚
         [HttpGet("IfApplyActivity")]
         public async Task<string> IfApplyActivity(int vol_id,int volAct_id)
         {
@@ -248,7 +247,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-
+        //@Author：刘睿萌
         [HttpPost("SearchVolActivity")]
         public async Task<string> SearchVolActivity(dynamic inputData)
         {
@@ -269,7 +268,7 @@ namespace EFDemo.Controllers
                    {
                        VolActId = activity.VolActId,
                        VolActName = activity.VolActName,
-                       ExpTime = activity.ExpTime.ToString(),
+                       ExpTime = activity.ExpTime.ToString("U"),
                        Province = activity.Address.ProvinceId,
                        City = activity.Address.CityId,
                        Area = activity.Address.AreaId,
@@ -296,7 +295,7 @@ namespace EFDemo.Controllers
                    {
                        VolActId = activity.VolActId,
                        VolActName = activity.VolActName,
-                       ExpTime = activity.ExpTime.ToString(),
+                       ExpTime = activity.ExpTime.ToString("U"),
                        Province = activity.Address.ProvinceId,
                        City = activity.Address.CityId,
                        Area = activity.Address.AreaId,
@@ -325,6 +324,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
+        //@Author：刘睿萌
         [HttpPost("SearchVolInst")]
         public async Task<string> SearchVolInst(dynamic inputData)
         {
@@ -398,7 +398,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-        //2.4 用户申请成为志愿者
+        //@Author：梁厚
         [HttpPost("UserApplyVolunteer")]    //设置路由（路径）
         //还没有图片
         public string UserApplyVolunteer(dynamic inputData)
@@ -442,9 +442,8 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //2.5 判断用户是否有正在审核中的“申请成为志愿者”的信息
+        //@Author：梁厚
         [HttpGet("IsReviewApply")]    //设置路由（路径）
-        //还没有图片
         public string IsReviewApply(int user_id)
         {
             MessageFormat message = new();  //MessageFormat是数据返回的类型，见MessageFormat.cs文件
@@ -478,9 +477,8 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-        //4.1.4 判断报名状态&报名&取消报名参加志愿活动
+        //@Author：梁厚
         [HttpGet("SignupOrCancelVolActivity")]    //设置路由（路径）
-        //还没有图片
         public string SignupOrCancelVolActivity(int VolId, int VolActId)
         {
             MessageFormat message = new();
@@ -508,7 +506,7 @@ namespace EFDemo.Controllers
                     VolunteerInAct.SignupPeople++;//取消报名，人数减少
                     message.data.Add("ApplyState", true);
                 }
-
+                ctx.Update(VolunteerInAct);
                 ctx.SaveChanges();      //保存更改
                 message.status = true;
                 message.errorCode = 200;
@@ -520,7 +518,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-
+        //@Author：韩淑榕
         [HttpGet("IfVolFocllowup")]
         public string IfVolFocllowup(int volid, int infoid)
         {
@@ -544,7 +542,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author：韩淑榕
         [HttpPost("VolFocllowup")]
         public async Task<string> VolFocllowup(int volid, int infoid)
         {
@@ -575,7 +573,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author：韩淑榕
         [HttpGet("IfVolRecruited")]
         public string IfVolRecruited(int volid, int actid)
         {
@@ -599,7 +597,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author：韩淑榕
         [HttpPost("VolRecruited")]
         public async Task<string> VolRecruited(int volid, int actid)
         {
@@ -637,7 +635,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author：韩淑榕
         [HttpPut("VolAddVolTime")]
         public async Task<string> VolAddVolTime(int volid, short addtime)
         {
@@ -658,7 +656,7 @@ namespace EFDemo.Controllers
             return message.ReturnJson();
         }
 
-
+        //@Author：韩淑榕
         [HttpGet("GetFollowUpInfo")]
         public async Task<string> GetFollowUpInfo(int volid, int pagenum, int pagesize)
         {
@@ -707,7 +705,7 @@ namespace EFDemo.Controllers
             }
             return message.ReturnJson();
         }
-
+        //@Author：韩淑榕
         [HttpGet("GetVolAct")]
         public async Task<string> GetVolAct(int volid, int pagenum, int pagesize)
         {
@@ -722,7 +720,7 @@ namespace EFDemo.Controllers
                     vol_act_id = act.VolActId,
                     vol_act_name = act.VolAct.VolActName,
                     vol_act_content = act.VolAct.ActContent,
-                    vol_act_time = act.VolAct.ExpTime.ToString(),
+                    vol_act_time = act.VolAct.ExpTime.ToString("U"),
                     province_id = (act.VolAct.Address != null) ? act.VolAct.Address.ProvinceId : null!,
                     city_id = (act.VolAct.Address != null) ? act.VolAct.Address.CityId : null!,
                     area_id = (act.VolAct.Address != null) ? act.VolAct.Address.AreaId : null!,
